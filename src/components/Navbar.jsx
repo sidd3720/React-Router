@@ -1,13 +1,30 @@
+
+import { useContext } from "react";
 import { NavLink } from "react-router-dom";
-import "./Navbar.css";
+import { ThemeContext } from "../ThemeContext";
 
 function Navbar() {
+  const { theme, setTheme } = useContext(ThemeContext);
+
+  function toggleTheme() {
+    setTheme(theme === "light" ? "dark" : "light");
+  }
+
   return (
-    <nav className="nav">
-      <NavLink to="/" className="link">Home</NavLink>
-      <NavLink to="/about" className="link">About</NavLink>
-      <NavLink to="/contact" className="link">Contact</NavLink>
-      <NavLink to="/dashboard" className="link">Dashboard</NavLink>
+    <nav className={`navbar ${theme}`}>
+      <h2 className="logo">MyWebsite</h2>
+
+      <div className="nav-links">
+        <NavLink to="/" end>Home</NavLink>
+        <NavLink to="/about">About</NavLink>
+        <NavLink to="/contact">Contact</NavLink>
+        <NavLink to="/dashboard">Dashboard</NavLink>
+        <NavLink to="/user/10">User Profile</NavLink>
+      </div>
+
+      <button className="theme-button" onClick={toggleTheme}>
+        {theme === "light" ? "🌙 Dark Mode" : "☀️ Light Mode"}
+      </button>
     </nav>
   );
 }
